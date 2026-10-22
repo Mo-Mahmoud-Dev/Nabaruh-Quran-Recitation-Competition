@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تعرّف على مسابقة نبروه الكبرى للقرآن الكريم والسنة النبوية، ورسالتها في تشجيع حفظ كتاب الله وإتقان تلاوته.">
+    <meta name="keywords" content="مسابقة نبروه, القرآن الكريم, السنة النبوية, حفظ القرآن, الدقهلية">
+    <meta name="robots" content="index, follow">
+    <title>عن المسابقة | مسابقة نبروه الكبرى</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- تنسيقات خاصة بصفحة عن المسابقة، مع الحفاظ على هوية الصفحة الرئيسية -->
+    <style>
+        .about-page-hero {
+            padding: 68px 0 72px;
+            background: linear-gradient(135deg, #f6faf8 0%, #ffffff 55%, #fbf5ed 100%);
+            overflow: hidden;
+        }
+
+        .about-page-hero .hero-content {
+            gap: 48px;
+        }
+
+        .about-page-hero .hero-image {
+            position: relative;
+        }
+
+        .about-page-hero .hero-image::before {
+            content: "";
+            position: absolute;
+            inset: 18px -18px -18px 18px;
+            border: 2px solid rgba(10, 90, 70, .18);
+            border-radius: 20px;
+            z-index: 0;
+        }
+
+        .about-page-hero .hero-image img {
+            position: relative;
+            z-index: 1;
+            display: block;
+            max-height: 430px;
+            object-fit: cover;
+            box-shadow: 0 18px 42px rgba(0, 61, 49, .12);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 14px;
+            padding: 7px 16px;
+            border-radius: 50px;
+            color: #0a5a46;
+            background: #e8f2ee;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .about-page-hero .hero-text h1 {
+            line-height: 1.55;
+        }
+
+        .about-page-hero .hero-text p,
+        .story-copy p {
+            color: #555;
+            line-height: 2.1;
+            font-size: 17px;
+        }
+
+        .page-section {
+            padding: 76px 0;
+        }
+
+        .page-section.soft-bg {
+            background: #f7f9f8;
+        }
+
+        .section-heading {
+            max-width: 760px;
+            margin: 0 auto 38px;
+            text-align: center;
+        }
+
+        .section-heading h2,
+        .story-copy h2,
+        .video-copy h2 {
+            margin-bottom: 14px;
+            color: #0a5a46;
+            font-size: 30px;
+        }
+
+        .section-heading p {
+            line-height: 2;
+            color: #666;
+        }
+
+        .story-layout {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: 42px;
+            align-items: center;
+        }
+
+        .story-copy p + p {
+            margin-top: 14px;
+        }
+
+        .story-quote {
+            margin-top: 22px;
+            padding: 18px 20px;
+            border-right: 4px solid #c77b24;
+            border-radius: 8px 0 0 8px;
+            background: #fbf5ed;
+            color: #60431f;
+            line-height: 1.9;
+            font-weight: 600;
+        }
+
+        .story-mark {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            border-radius: 22px;
+            background: linear-gradient(145deg, #0a5a46, #003d31);
+            box-shadow: 8px 8px 0 rgba(199, 123, 36, .22);
+            text-align: center;
+        }
+
+        .story-mark img {
+            width: min(100%, 290px);
+            max-height: 290px;
+            object-fit: contain;
+            border-radius: 20px;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .15));
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .about-value-card {
+            height: 100%;
+            padding: 28px 24px;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .05);
+            border-bottom: 3px solid #c77b24;
+            text-align: center;
+        }
+
+        .value-number {
+            display: inline-flex;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            border-radius: 50%;
+            background: #e8f2ee;
+            color: #0a5a46;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .about-value-card h3 {
+            margin-bottom: 10px;
+            color: #0a5a46;
+            font-size: 20px;
+        }
+
+        .about-value-card p {
+            color: #666;
+            line-height: 1.9;
+        }
+
+        .video-section {
+            margin-bottom: 50px;
+            background: #003d31;
+            color: #fff;
+        }
+
+        .video-layout {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            align-items: center;
+            gap: 42px;
+        }
+
+        .video-copy h2 {
+            color: #fff;
+        }
+
+        .video-copy p {
+            color: rgba(255, 255, 255, .84);
+            line-height: 2;
+            margin-bottom: 22px;
+        }
+
+        .video-frame {
+            overflow: hidden;
+            border: 5px solid rgba(255, 255, 255, .12);
+            border-radius: 18px;
+            background: #071e19;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .24);
+        }
+
+        .video-frame video {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            background: #071e19;
+        }
+
+        .about-cta {
+            padding: 58px 0;
+            text-align: center;
+            background: #fbf5ed;
+        }
+
+        .about-cta h2 {
+            color: #0a5a46;
+            margin-bottom: 12px;
+        }
+
+        .about-cta p {
+            margin: 0 auto 22px;
+            max-width: 700px;
+            color: #5e5e5e;
+            line-height: 2;
+        }
+
+        .about-cta .btn {
+            border: 0;
+        }
+
+        .nav-links a[aria-current="page"] {
+            color: #0a5a46;
+        }
+
+        /* ===== المتسابقون الأوائل ===== */
+        .winners-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .winner-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: 18px;
+            background: #fff;
+            box-shadow: 0 8px 26px rgba(0, 0, 0, .07);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .winner-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(0, 61, 49, .16);
+        }
+
+        .winner-photo {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background: #e8f2ee;
+        }
+
+        .winner-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 35%;
+            display: block;
+            transition: transform .5s ease;
+        }
+
+        .winner-card:hover .winner-photo img {
+            transform: scale(1.04);
+        }
+
+        .winner-photo::after {
+            content: "";
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 35%;
+            background: linear-gradient(to top, rgba(0, 61, 49, .55), transparent);
+            pointer-events: none;
+        }
+
+        .winner-rank {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 2;
+            padding: 6px 16px;
+            border-radius: 50px;
+            background: #c77b24;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+        }
+
+        .winner-card.is-first .winner-rank {
+            background: linear-gradient(135deg, #e0a53a, #c77b24);
+        }
+
+        .winner-card.is-second .winner-rank {
+            background: #0a5a46;
+        }
+
+        .winner-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 16px 24px;
+            text-align: center;
+            border-bottom: 3px solid #c77b24;
+        }
+
+        .winner-level {
+            padding: 5px 14px;
+            border-radius: 50px;
+            background: #e8f2ee;
+            color: #0a5a46;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .winner-body h3 {
+            color: #0a5a46;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .winner-prize {
+            margin-top: auto;
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: #fbf5ed;
+            color: #60431f;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.7;
+        }
+
+        .winners-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 34px;
+            padding: 20px 24px;
+            border-right: 4px solid #c77b24;
+            border-radius: 10px;
+            background: #fbf5ed;
+            color: #60431f;
+            font-weight: 600;
+            line-height: 1.9;
+            text-align: center;
+        }
+
+        @media (max-width: 1100px) {
+            .winners-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .winners-grid {
+                grid-template-columns: 1fr;
+                max-width: 360px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-page-hero .hero-content,
+            .story-layout,
+            .video-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .about-page-hero .hero-image {
+                width: min(100%, 650px);
+                margin: 0 auto;
+            }
+
+            .about-page-hero .hero-text {
+                text-align: center;
+            }
+
+            .about-page-hero .buttons {
+                justify-content: center;
+            }
+
+            .story-mark {
+                min-height: 250px;
+            }
+
+            .video-layout {
+                gap: 28px;
+            }
+
+            .video-copy {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-section,
+            .about-page-hero {
+                padding: 48px 0;
+            }
+
+            .about-values {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading h2,
+            .story-copy h2,
+            .video-copy h2 {
+                font-size: 26px;
+            }
+
+            .about-page-hero .hero-image::before {
+                inset: 10px -10px -10px 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .about-page-hero .hero-text h1 {
+                font-size: 29px;
+            }
+
+            .about-page-hero .hero-text p,
+            .story-copy p,
+            .video-copy p {
+                font-size: 15px;
+            }
+
+            .story-mark {
+                min-height: 210px;
+                padding: 20px;
+            }
+
+            .video-frame {
+                border-width: 3px;
+                border-radius: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="container" aria-label="القائمة الرئيسية">
+            <div class="logo">
+                <img src="images/MainLogo.png" alt="شعار مسابقة نبروه">
+                <h1>مسابقة نبروه الكبرى</h1>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="aboutUs.html" aria-current="page">عن المسابقة</a></li>
+                <li><a href="index.html#register">التسجيل</a></li>
+                <li><a href="Competition-results.html">النتائج</a></li>
+                <li><a href="tel:01036791994">اتصل بنا</a></li>
+                <li class="mobile-btn-container"><a href="index.html#register" class="btn">سجل الآن</a></li>
+            </ul>
+
+            <a href="index.html#register" class="btn desktop-btn">سجل الآن</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero about-page-hero">
+            <div class="container hero-content">
+                <div class="hero-image">
+                    <img src="images/Logo.png" alt="شعار مسابقة نبروه الكبرى للقرآن الكريم والسنة النبوية">
+                </div>
+                <div class="hero-text">
+                    <h1>عن مسابقة نبروه الكبرى للقرآن الكريم والسنة النبوية</h1>
+                    <p>
+                        مسابقة دينية سنوية بمحافظة الدقهلية، تهدف إلى تشجيع الناشئة والشباب على حفظ كتاب الله تعالى
+                        وإتقان تلاوته، وتعزيز التنافس الشريف في خدمة القرآن الكريم والسنة النبوية.
+                    </p>
+                    <div class="buttons">
+                        <a href="index.html#register" class="btn">سجل الآن</a>
+                        <a href="#our-message" class="btn-outline">اكتشف رسالتنا</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section" id="our-message">
+            <div class="container story-layout">
+                <div class="story-copy">
+                    <span class="eyebrow">رسالتنا</span>
+                    <h2>مساحة للتنافس في الخير والتميّز</h2>
+                    <p>
+                        تنطلق مسابقة نبروه من الإيمان بأهمية ربط الأجيال بكتاب الله، وتشجيعهم على الاجتهاد في الحفظ
+                        والتلاوة، والاهتمام بالسنة النبوية. وهي فرصة لإبراز المواهب القرآنية ودعم المشاركين في رحلتهم
+                        مع كتاب الله تعالى.
+                    </p>
+                    <p>
+                        وتضم المسابقة مستويات متنوعة للحفظ، وتُختتم بتكريم المتفوقين تقديرًا لجهدهم وتميزهم، في أجواء
+                        تحتفي بأهل القرآن وتشجع على مواصلة التعلم والإتقان.
+                    </p>
+                    <div class="story-quote">
+                        غايتنا أن يبقى القرآن الكريم حاضرًا في حياة أبنائنا، علمًا وعملًا وأخلاقًا.
+                    </div>
+                </div>
+                <div class="story-mark">
+                    <img src="images/MainLogo.png" alt="الشعار الرسمي لمسابقة نبروه">
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section soft-bg">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">ما الذي نسعى إليه؟</span>
+                    <h2>أهداف المسابقة</h2>
+                    <p>نعمل على تشجيع المشاركين على الارتباط بالقرآن الكريم، وتنمية روح الاجتهاد والتنافس الشريف.</p>
+                </div>
+
+                <div class="about-values">
+                    <article class="about-value-card">
+                        <span class="value-number">١</span>
+                        <h3>حفظ وإتقان</h3>
+                        <p>تشجيع الناشئة والشباب على حفظ كتاب الله تعالى وإتقان تلاوته وفق مستويات الحفظ المتاحة.</p>
+                    </article>
+                    <article class="about-value-card">
+                        <span class="value-number">٢</span>
+                        <h3>اكتشاف المواهب</h3>
+                        <p>إبراز الأصوات المتميزة والقدرات القرآنية، وتحفيز المشاركين على الاستمرار في التعلم والاجتهاد.</p>
+                    </article>
+                    <article class="about-value-card">
+                        <span class="value-number">٣</span>
+                        <h3>تكريم المتفوقين</h3>
+                        <p>تقدير جهود الفائزين والمتميزين من خلال التكريم والجوائز المالية والتقديرية المخصصة للمسابقة.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section" id="winners">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">من مسابقة العام الماضي</span>
+                    <h2>المتسابقون الأوائل</h2>
+                    <p>نفخر بتكريم المتفوقين من أبطال العام الماضي، الذين أبدعوا في الحفظ والإتقان فاستحقوا المراكز الأولى.</p>
+                </div>
+
+                <div class="winners-grid">
+                    <article class="winner-card is-first">
+                        <div class="winner-photo">
+                            <span class="winner-rank">🥇 المركز الأول</span>
+                            <img src="images/FirstInFull.png" alt="حبيبة أحمد محمد حبيب - المركز الأول في مستوى القرآن الكريم كاملًا" loading="lazy">
+                        </div>
+                        <div class="winner-body">
+                            <span class="winner-level">القرآن الكريم كاملًا</span>
+                            <h3>حبيبة أحمد محمد حبيب</h3>
+                            <span class="winner-prize">🕋 فازت برحلة عمرة</span>
+                        </div>
+                    </article>
+                    <article class="winner-card is-second">
+                        <div class="winner-photo">
+                            <span class="winner-rank">🥈 المركز الثاني</span>
+                            <img src="images/SecondInFull.png" alt="نور رجائي المرسي - المركز الثاني في مستوى القرآن الكريم كاملًا" loading="lazy">
+                        </div>
+                        <div class="winner-body">
+                            <span class="winner-level">القرآن الكريم كاملًا</span>
+                            <h3>نور رجائي المرسي</h3>
+                            <span class="winner-prize">🕋 فازت برحلة عمرة</span>
+                        </div>
+                    </article>
+                    <article class="winner-card is-first">
+                        <div class="winner-photo">
+                            <span class="winner-rank">🥇 المركز الأول</span>
+                            <img src="images/FirstInHalf.png" alt="حبيبة وليد سعد الحداد - المركز الأول في مستوى نصف القرآن الكريم" loading="lazy">
+                        </div>
+                        <div class="winner-body">
+                            <span class="winner-level">نصف القرآن الكريم</span>
+                            <h3>حبيبة وليد سعد الحداد</h3>
+                            <span class="winner-prize">💰 جوائز مالية قيّمة</span>
+                        </div>
+                    </article>
+                    <article class="winner-card is-first">
+                        <div class="winner-photo">
+                            <span class="winner-rank">🥇 المركز الأول</span>
+                            <img src="images/FirstInQuarter.png" alt="هنا محمد نجاح أبو الغيط - المركز الأول في مستوى ربع القرآن الكريم" loading="lazy">
+                        </div>
+                        <div class="winner-body">
+                            <span class="winner-level">ربع القرآن الكريم</span>
+                            <h3>هنا محمد نجاح أبو الغيط</h3>
+                            <span class="winner-prize">💰 جوائز مالية قيّمة</span>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="winners-note">
+                    <span>🏆</span>
+                    <span>ولم يقتصر التكريم على الأوائل؛ فقد حصل المراكز العشرة الأوائل من كل مستوى على جوائز مالية قيّمة.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section video-section" id="video">
+            <div class="container video-layout">
+                <div class="video-copy">
+                    <span class="eyebrow">من مسابقة العام الماضي</span>
+                    <h2>شاهد فيديو المسابقة</h2>
+                    <p>
+                        نشارككم هذا الفيديو للتعرّف على أجواء مسابقة نبروه. اضغط على زر التشغيل لمشاهدته.
+                    </p>
+                    <a href="index.html#register" class="btn">شارك في المسابقة</a>
+                </div>
+                <div class="video-frame">
+                    <video controls preload="metadata" playsinline poster="images/Logo.png" aria-label="فيديو مسابقة نبروه للقرآن الكريم والسنة النبوية">
+                        <source src="images/TheFirstYear.mp4" type="video/mp4">
+                        المتصفح الخاص بك لا يدعم تشغيل الفيديو. يمكنك فتح الملف مباشرة من
+                        <a href="images/TheFirstYear.mp4">هذا الرابط</a>.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-cta">
+            <div class="container">
+                <h2>كن جزءًا من رحلة أهل القرآن</h2>
+                <p>تعرّف على تفاصيل التسجيل والمستويات المتاحة، وابدأ خطوتك نحو المشاركة في مسابقة نبروه الكبرى.</p>
+                <a href="index.html#register" class="btn">الانتقال إلى التسجيل</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Created by <a href="https://github.com/Mo-Mahmoud-Dev">@Mo-Mahmoud-Dev</a> © 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // قائمة الموبايل لهذه الصفحة.
+        (function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            if (!menuToggle || !navLinks) return;
+
+            menuToggle.addEventListener('click', function () {
+                const isOpen = navLinks.classList.toggle('active');
+                menuToggle.setAttribute('aria-expanded', String(isOpen));
+                menuToggle.setAttribute('aria-label', isOpen ? 'إغلاق القائمة' : 'فتح القائمة');
+            });
+
+            navLinks.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    navLinks.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    menuToggle.setAttribute('aria-label', 'فتح القائمة');
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>
