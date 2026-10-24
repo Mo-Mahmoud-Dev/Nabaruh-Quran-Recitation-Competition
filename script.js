@@ -161,7 +161,7 @@ function isInList(list, name) {
     return (list || []).some(n => namesMatch(n, name));
 }
 
-// ترتيب الفئات: 4 = كامل مع تفسير سورة النور، 3 = كامل، 2 = نصف، 1 = ربع، 0 = غير ذلك (الأربعون النووية)
+// ترتيب الفئات: 4 = كامل مع تفسير سورة النور، 3 = كامل، 2 = نصف، 1 = ربع، 0 = غير ذلك (الأربعون النووية والمنتقي الفقهي)
 function getLevelRank(value) {
     if (value.includes("تفسير")) return 4;
     if (value.includes("كاملاً")) return 3;
@@ -311,7 +311,7 @@ function buildPdfHtml(d, photoBox) {
         ${row('العمر', d.age)}
         ${row('الجنس', d.gender)}
         ${row('رقم الهاتف', d.phone)}
-        ${row('عدد الأجزاء المحفوظة', d.memorized_parts)}
+        ${row('المستوي المراد الإشتراك فيه', d.memorized_parts)}
         ${row('العنوان', d.address)}
         ${row('اسم الشيخ المحفظ', d.sheikh_name)}
         ${row('تاريخ التسجيل', today)}
@@ -542,7 +542,7 @@ if (form) {
         fd.append("الاسم", data.full_name);
         fd.append("العمر", data.age);
         fd.append("الجنس", data.gender);
-        fd.append("عدد الأجزاء", data.memorized_parts);
+        fd.append("المستوى المراد الاشتراك فيه", data.memorized_parts);
         fd.append("رقم الهاتف", data.phone);
         fd.append("العنوان", data.address);
         fd.append("اسم الشيخ المحفظ", data.sheikh_name);
