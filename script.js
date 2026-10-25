@@ -591,7 +591,7 @@ if (form) {
 
         form.reset();
         updatePhotoRequirement();
-        await showPopup('success', "تم تسجيل بياناتك بنجاح، بارك الله فيك ونسأل الله لك التوفيق", "تم التسجيل");
+        await showPopup('success', "الطلب قيد المراجعة وفي حاله قبول الطلب سيتم إرسال رسالة تأكيد لك عبر واتساب", "تم التسجيل");
     } catch (error) {
         console.error("Send Error:", error);
         timer.mark("توقف بسبب خطأ");
