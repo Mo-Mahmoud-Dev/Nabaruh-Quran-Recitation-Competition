@@ -185,6 +185,78 @@ nav {
     color: #0a5a46;
 }
 
+/* ===== فئات المسابقة وشروط السن ===== */
+.levels {
+    padding: 80px 0;
+    background: #f6faf8;
+}
+
+.levels h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #0a5a46;
+}
+
+.levels .section-desc {
+    color: #555;
+}
+
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 20px;
+}
+
+.level-card {
+    background: #fff;
+    padding: 28px 24px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .05);
+    border-top: 3px solid #0a5a46;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.level-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(10, 90, 70, .12);
+}
+
+.level-card.open {
+    border-top-color: #c77b24;
+}
+
+.level-badge {
+    display: inline-block;
+    padding: 7px 20px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    background: #eef6f2;
+    color: #0a5a46;
+    border: 1px solid #cfe4db;
+}
+
+.level-card.open .level-badge {
+    background: #fdf3e7;
+    color: #904d00;
+    border-color: #f0dcbc;
+}
+
+.level-card h3 {
+    color: #0a5a46;
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+.level-card p {
+    color: #666;
+    font-size: 14.5px;
+    line-height: 1.9;
+}
+
 .register {
     padding: 80px 0;
 }
@@ -377,6 +449,7 @@ footer .container p a {
 
     .hero,
     .about,
+    .levels,
     .register {
         padding: 60px 0;
     }
@@ -462,6 +535,7 @@ footer .container p a {
 
     .hero,
     .about,
+    .levels,
     .register {
         padding: 40px 0;
     }
@@ -488,6 +562,19 @@ footer .container p a {
 
     .card {
         padding: 22px;
+    }
+
+    .level-card {
+        padding: 22px 18px;
+    }
+
+    .level-card h3 {
+        font-size: 16.5px;
+    }
+
+    .level-badge {
+        font-size: 14px;
+        padding: 6px 16px;
     }
 
     .register-form {

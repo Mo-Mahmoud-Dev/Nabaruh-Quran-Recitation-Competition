@@ -170,20 +170,27 @@ function getLevelRank(value) {
     return 0;
 }
 
+// الحد الأقصى للسن لكل فئة (null = لا يشترط سن معين للتقديم)
+function getAgeLimit(selectedLevel) {
+    const v = String(selectedLevel || "");
+    if (v.includes("تفسير")) return null;                            // كامل مع تفسير سورة النور: جميع الأعمار
+    if (v.includes("كاملاً")) return 25;                             // القرآن الكريم كاملاً
+    if (v.includes("نصف القرآن")) return 20;                         // نصف القرآن الكريم
+    if (v.includes("ربع القرآن")) return 15;                         // ربع القرآن الكريم
+    if (v.includes("الأربعون") || v.includes("النووية")) return 15;  // الأربعون النووية
+    if (v.includes("المنتقي") || v.includes("الفقهي")) return 30;    // المنتقي الفقهي
+    return null;
+}
+
 // التحقق من أن العنوان لمدينة نبروة (يقبل نبروة / نبروه)
 function isNabroaAddress(address) {
     return squashName(address).includes("نبروه");
 }
 
 // ترجع رسالة المنع، أو null لو مسموح له بالتسجيل
-async function checkRegistrationAllowed(fullName, selectedLevel, age) {
+async function checkRegistrationAllowed(fullName, selectedLevel) {
     const db = await loadBlockedData();
     const rank = getLevelRank(selectedLevel);
-
-    // فئة ربع القرآن: مسموحة فقط لمن عمره 15 سنة أو أقل
-    if (rank === 1 && Number(age) > 15) {
-        return "فئة ربع القرآن الكريم مخصصة للمتسابقين حتى سن 15 سنة فقط، يرجى اختيار فئة أخرى ❌";
-    }
 
     if (isInList(db.full, fullName) && rank < 4) {
         return "لقد شاركت العام الماضي في فئة القرآن الكريم كاملاً، ويمكنك المشاركة هذا العام فقط في فئة القرآن الكريم كاملاً مع تفسير سورة النور وحفظ معاني كلمات السورة ❌";
@@ -513,8 +520,15 @@ if (form) {
             return;
         }
 
+        // شرط السن حسب الفئة المختارة (فحص سريع بدون أي طلب شبكة)
+        const ageLimit = getAgeLimit(data.memorized_parts);
+        if (ageLimit !== null && Number(data.age) > ageLimit) {
+            await showPopup('warning', "فئة " + data.memorized_parts + " مخصصة للمتسابقين حتى سن " + ageLimit + " سنة فقط، يرجى التأكد من صحة العمر أو اختيار فئة أخرى ❌");
+            return;
+        }
+
         // التحقق من المتسابقين السابقين (قبل أي إرسال)
-        const blockMsg = await checkRegistrationAllowed(data.full_name, data.memorized_parts, data.age);
+        const blockMsg = await checkRegistrationAllowed(data.full_name, data.memorized_parts);
         if (blockMsg) {
             await showPopup('warning', blockMsg);
             return;
