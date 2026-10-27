@@ -49,7 +49,7 @@ if (genderSelect) {
 const POPUP_TYPES = {
     success: { icon: "✓", color: "#0a5a46", title: "تم بنجاح" },
     warning: { icon: "!", color: "#c77b24", title: "تنبيه" },
-    error:   { icon: "✕", color: "#c0392b", title: "حدث خطأ" }
+    error: { icon: "✕", color: "#c0392b", title: "حدث خطأ" }
 };
 
 (function injectPopupStyles() {
@@ -182,6 +182,19 @@ function getAgeLimit(selectedLevel) {
     return null;
 }
 
+// كود المستوى لاستخدامه في موضوع الإيميل (لفلاتر Gmail)
+// مهم: "تفسير" يتفحص قبل "كاملاً" لأن الفئة الأولى فيها الكلمتين
+function getLevelTag(level) {
+    const v = String(level || "");
+    if (v.includes("تفسير")) return "L1 كامل مع تفسير";
+    if (v.includes("كاملاً")) return "L2 كامل";
+    if (v.includes("نصف القرآن")) return "L3 نصف";
+    if (v.includes("ربع القرآن")) return "L4 ربع";
+    if (v.includes("الأربعون") || v.includes("النووية")) return "L5 الأربعون النووية";
+    if (v.includes("المنتقي") || v.includes("الفقهي")) return "L6 المنتقي الفقهي";
+    return "L0 غير محدد";
+}
+
 // التحقق من أن العنوان لمدينة نبروة (يقبل نبروة / نبروه)
 function isNabroaAddress(address) {
     return squashName(address).includes("نبروه");
@@ -256,12 +269,12 @@ const ID_OPTS = [900, 0.7];
 
 if (attachmentInput) {
     attachmentInput.addEventListener('change', () => {
-        prepareImage(attachmentInput.files[0], ...PHOTO_OPTS).catch(() => {});
+        prepareImage(attachmentInput.files[0], ...PHOTO_OPTS).catch(() => { });
     });
 }
 if (idDocInput) {
     idDocInput.addEventListener('change', (e) => {
-        prepareImage(e.target.files[0], ...ID_OPTS).catch(() => {});
+        prepareImage(e.target.files[0], ...ID_OPTS).catch(() => { });
     });
 }
 
@@ -474,7 +487,7 @@ window.addEventListener("load", () => {
 
 // تحميل بيانات المنع مقدماً أول ما الصفحة تفتح (توفير وقت وقت الإرسال)
 if (form) {
-    loadBlockedData().catch(() => {});
+    loadBlockedData().catch(() => { });
 }
 
 // أقصى مدة انتظار للإرسال (60 ثانية)
@@ -506,101 +519,100 @@ if (form) {
             const file = attachmentInput && attachmentInput.files ? attachmentInput.files[0] : null;
             const idFile = idDocInput && idDocInput.files ? idDocInput.files[0] : null;
 
-        // الفحوصات السريعة الأول (من غير أي طلب شبكة)
-        if (data.gender === 'ذكر' && !file) {
-            await showPopup('warning', "الصورة الشخصية إجبارية للمتسابقين الذكور");
-            return;
-        }
-        if (!isNabroaAddress(data.address)) {
-            await showPopup('warning', "التسجيل متاح فقط لسكان مدينة نبروة، يرجى كتابة العنوان متضمناً اسم المدينة (نبروة)");
-            return;
-        }
-        if (!idFile) {
-            await showPopup('warning', "صورة البطاقة أو شهادة الميلاد إجبارية");
-            return;
-        }
-
-        // شرط السن حسب الفئة المختارة (فحص سريع بدون أي طلب شبكة)
-        const ageLimit = getAgeLimit(data.memorized_parts);
-        if (ageLimit !== null && Number(data.age) > ageLimit) {
-            await showPopup('warning', "فئة " + data.memorized_parts + " مخصصة للمتسابقين حتى سن " + ageLimit + " سنة فقط، يرجى التأكد من صحة العمر أو اختيار فئة أخرى ❌");
-            return;
-        }
-
-        // التحقق من المتسابقين السابقين (قبل أي إرسال)
-        const blockMsg = await checkRegistrationAllowed(data.full_name, data.memorized_parts);
-        if (blockMsg) {
-            await showPopup('warning', blockMsg);
-            return;
-        }
-
-        timer.mark("التحقق من البيانات");
-
-        // الصور غالباً جاهزة من وقت اختيارها، وإلا بتتضغط الآن بالتوازي
-        setStatus("جاري تجهيز الملف...");
-        const [photo, idImg] = await Promise.all([
-            prepareImage(file, ...PHOTO_OPTS),
-            prepareImage(idFile, ...ID_OPTS)
-        ]);
-
-        timer.mark("تجهيز وضغط الصور");
-        const pdfBlob = await generatePdfBlob(data, photo, idImg);
-        timer.mark("توليد ملف PDF");
-        const pdfFile = new File([pdfBlob], "registration.pdf", { type: "application/pdf" });
-        timer.info("حجم الـ PDF", Math.round(pdfFile.size / 1024) + " KB");
-
-        const fd = new FormData();
-        fd.append("_subject", "متسابق جديد: " + data.full_name);
-        fd.append("_template", "table");
-        fd.append("_captcha", "false");
-        fd.append("الاسم", data.full_name);
-        fd.append("العمر", data.age);
-        fd.append("الجنس", data.gender);
-        fd.append("المستوى المراد الاشتراك فيه", data.memorized_parts);
-        fd.append("رقم الهاتف", data.phone);
-        fd.append("العنوان", data.address);
-        fd.append("اسم الشيخ المحفظ", data.sheikh_name);
-        fd.append("صورة البطاقة أو شهادة الميلاد", "مرفقة داخل ملف PDF (الصفحة 2)");
-        fd.append("الصورة", file ? "مرفقة داخل ملف PDF" : "لم تُرفق (اختيارية)");
-        fd.append("attachment", pdfFile, "registration.pdf");
-
-        setStatus("جاري الإرسال إنتظر دقيقة ...");
-
-        // الرابط العادي مع no-cors: بيدعم المرفقات (الـ ajax مش بيدعمها)
-        // ملحوظة: مع no-cors مش بنقدر نقرأ الرد، فنجاح الإرسال = عدم حدوث خطأ شبكة
-        const controller = new AbortController();
-        const abortTimer = setTimeout(() => controller.abort(), SEND_TIMEOUT_MS);
-        try {
-            await fetch(FORMSUBMIT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                body: fd,
-                signal: controller.signal
-            });
-        } catch (err) {
-            if (err && err.name === "AbortError") {
-                throw new Error("انتهت مهلة الإرسال، تأكد من الاتصال بالإنترنت وحاول مرة أخرى");
+            // الفحوصات السريعة الأول (من غير أي طلب شبكة)
+            if (data.gender === 'ذكر' && !file) {
+                await showPopup('warning', "الصورة الشخصية إجبارية للمتسابقين الذكور");
+                return;
             }
-            throw err;
+            if (!isNabroaAddress(data.address)) {
+                await showPopup('warning', "التسجيل متاح فقط لسكان مدينة نبروة، يرجى كتابة العنوان متضمناً اسم المدينة (نبروة)");
+                return;
+            }
+            if (!idFile) {
+                await showPopup('warning', "صورة البطاقة أو شهادة الميلاد إجبارية");
+                return;
+            }
+
+            // شرط السن حسب الفئة المختارة (فحص سريع بدون أي طلب شبكة)
+            const ageLimit = getAgeLimit(data.memorized_parts);
+            if (ageLimit !== null && Number(data.age) > ageLimit) {
+                await showPopup('warning', "فئة " + data.memorized_parts + " مخصصة للمتسابقين حتى سن " + ageLimit + " سنة فقط، يرجى التأكد من صحة العمر أو اختيار فئة أخرى ❌");
+                return;
+            }
+
+            // التحقق من المتسابقين السابقين (قبل أي إرسال)
+            const blockMsg = await checkRegistrationAllowed(data.full_name, data.memorized_parts);
+            if (blockMsg) {
+                await showPopup('warning', blockMsg);
+                return;
+            }
+
+            timer.mark("التحقق من البيانات");
+
+            // الصور غالباً جاهزة من وقت اختيارها، وإلا بتتضغط الآن بالتوازي
+            setStatus("جاري تجهيز الملف...");
+            const [photo, idImg] = await Promise.all([
+                prepareImage(file, ...PHOTO_OPTS),
+                prepareImage(idFile, ...ID_OPTS)
+            ]);
+
+            timer.mark("تجهيز وضغط الصور");
+            const pdfBlob = await generatePdfBlob(data, photo, idImg);
+            timer.mark("توليد ملف PDF");
+            const pdfFile = new File([pdfBlob], "registration.pdf", { type: "application/pdf" });
+            timer.info("حجم الـ PDF", Math.round(pdfFile.size / 1024) + " KB");
+
+            const fd = new FormData();
+            fd.append("_subject", "[" + getLevelTag(data.memorized_parts) + "] متسابق جديد: " + data.full_name); fd.append("_template", "table");
+            fd.append("_captcha", "false");
+            fd.append("الاسم", data.full_name);
+            fd.append("العمر", data.age);
+            fd.append("الجنس", data.gender);
+            fd.append("المستوى المراد الاشتراك فيه", data.memorized_parts);
+            fd.append("رقم الهاتف", data.phone);
+            fd.append("العنوان", data.address);
+            fd.append("اسم الشيخ المحفظ", data.sheikh_name);
+            fd.append("صورة البطاقة أو شهادة الميلاد", "مرفقة داخل ملف PDF (الصفحة 2)");
+            fd.append("الصورة", file ? "مرفقة داخل ملف PDF" : "لم تُرفق (اختيارية)");
+            fd.append("attachment", pdfFile, "registration.pdf");
+
+            setStatus("جاري الإرسال إنتظر دقيقة ...");
+
+            // الرابط العادي مع no-cors: بيدعم المرفقات (الـ ajax مش بيدعمها)
+            // ملحوظة: مع no-cors مش بنقدر نقرأ الرد، فنجاح الإرسال = عدم حدوث خطأ شبكة
+            const controller = new AbortController();
+            const abortTimer = setTimeout(() => controller.abort(), SEND_TIMEOUT_MS);
+            try {
+                await fetch(FORMSUBMIT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    body: fd,
+                    signal: controller.signal
+                });
+            } catch (err) {
+                if (err && err.name === "AbortError") {
+                    throw new Error("انتهت مهلة الإرسال، تأكد من الاتصال بالإنترنت وحاول مرة أخرى");
+                }
+                throw err;
+            } finally {
+                clearTimeout(abortTimer);
+            }
+
+            timer.mark("الإرسال للسيرفر");
+            timer.print();
+
+            form.reset();
+            updatePhotoRequirement();
+            await showPopup('success', "الطلب قيد المراجعة وفي حاله قبول الطلب سيتم إرسال رسالة تأكيد لك عبر واتساب", "تم التسجيل");
+        } catch (error) {
+            console.error("Send Error:", error);
+            timer.mark("توقف بسبب خطأ");
+            timer.print();
+            const reason = (error && error.message) || "";
+            await showPopup('error', "حدث خطأ أثناء الإرسال\n" + reason);
         } finally {
-            clearTimeout(abortTimer);
+            submitBtn.disabled = false;
+            submitBtn.innerText = "تأكيد التسجيل";
         }
-
-        timer.mark("الإرسال للسيرفر");
-        timer.print();
-
-        form.reset();
-        updatePhotoRequirement();
-        await showPopup('success', "الطلب قيد المراجعة وفي حاله قبول الطلب سيتم إرسال رسالة تأكيد لك عبر واتساب", "تم التسجيل");
-    } catch (error) {
-        console.error("Send Error:", error);
-        timer.mark("توقف بسبب خطأ");
-        timer.print();
-        const reason = (error && error.message) || "";
-        await showPopup('error', "حدث خطأ أثناء الإرسال\n" + reason);
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "تأكيد التسجيل";
-    }
     });
 }
