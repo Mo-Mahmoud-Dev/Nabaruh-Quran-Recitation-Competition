@@ -28,7 +28,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    </head>
+</head>
 
 <body>
 
@@ -54,6 +54,26 @@
             <a href="#register" class="btn desktop-btn">سجل الآن</a>
         </nav>
     </header>
+
+<div class="notice-bar" role="status">
+    <div class="container notice-content">
+        <div class="notice-title">
+            <span class="notice-icon">📢</span>
+            <strong>تنبيه هام</strong>
+        </div>
+
+        <div class="notice-items">
+            <div class="notice-item">
+                <span class="notice-label">استلام طلبات التسجيل</span>
+                <span class="notice-date">15 نوفمبر ← 15 ديسمبر</span>
+            </div>
+            <div class="notice-item">
+                <span class="notice-label">مراجعة الطلبات</span>
+                <span class="notice-date">15 ديسمبر ← 30 ديسمبر</span>
+            </div>
+        </div>
+    </div>
+</div>  
 
     <section class="hero">
         <div class="container hero-content">
@@ -129,7 +149,8 @@
         <div class="container">
             <h2>فئات المسابقة وشروط السن</h2>
             <p class="section-desc">
-                لكل فئة من فئات المسابقة حد أقصى للسن، يرجى مراجعة الشروط التالية واختيار الفئة المناسبة لعمرك قبل التسجيل.
+                لكل فئة من فئات المسابقة حد أقصى للسن، يرجى مراجعة الشروط التالية واختيار الفئة المناسبة لعمرك قبل
+                التسجيل.
             </p>
             <div class="levels-grid">
                 <div class="level-card open">
@@ -190,7 +211,8 @@
                         <option>الأربعون النووية</option>
                         <option>المنتقي الفقهي</option>
                     </select>
-                    <input type="text" id="address" name="address" placeholder="العنوان بالتفصيل (للمقيمين بمدينة نبروة فقط)" required>
+                    <input type="text" id="address" name="address"
+                        placeholder="العنوان بالتفصيل (للمقيمين بمدينة نبروة فقط)" required>
                     <input type="text" id="sheikhName" name="sheikh_name" placeholder="اسم الشيخ المحفظ" required>
                     <label class="file-input-label" id="attachmentLabel" for="attachment">صورة شخصية</label>
                     <input type="file" id="attachment" name="attachment" accept="image/*">
@@ -207,7 +229,7 @@
 
     <footer>
         <div class="container">
-            <p>Created by <a href="https://github.com/Mo-Mahmoud-Dev">@Mo-Mahmoud-Dev</a> © 2025  </p> 
+            <p>Created by <a href="https://github.com/Mo-Mahmoud-Dev">@Mo-Mahmoud-Dev</a> © 2025 </p>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
